@@ -11,11 +11,18 @@ object StatsEndpoint {
     val dsl = new Http4sDsl[F] {}
     import dsl._
 
-    HttpRoutes.of[F] { case GET -> Root / "user" / "stats" / "shower" / "time" =>
-      for {
-        stats    <- service.getAverageShowerTime
-        response <- Ok(stats)
-      } yield response
+    HttpRoutes.of[F] {
+      case GET -> Root / "user" / "stats" / "shower" / "time" =>
+        for {
+          stats    <- service.getAverageShowerTime
+          response <- Ok(stats)
+        } yield response
+
+      case GET -> Root / "user" / "stats" / "water" / "consumption" =>
+        for {
+          consumption <- service.getWaterConsumption
+          response    <- Ok(consumption)
+        } yield response
     }
   }
 
