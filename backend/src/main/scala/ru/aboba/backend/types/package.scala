@@ -14,10 +14,10 @@ package object types {
   type Liter = Liter.Type
 
   @derive(decoder, encoder)
-  object KilowattPerHour extends TaggedType[BigDecimal] {
-    def from(d: Double): KilowattPerHour =
-      KilowattPerHour(BigDecimal(d))
+  object Power extends TaggedType[BigDecimal] {
+    def from(d: Double): Power =
+      Power(BigDecimal(d))
   }
-  type KilowattPerHour = KilowattPerHour.Type
+  type Power = Power.Type
 
 }

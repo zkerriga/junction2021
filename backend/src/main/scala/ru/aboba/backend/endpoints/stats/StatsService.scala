@@ -2,7 +2,7 @@ package ru.aboba.backend.endpoints.stats
 
 import cats.Applicative
 import ru.aboba.backend.endpoints.stats.models.{AverageTime, WaterConsumption}
-import ru.aboba.backend.types.{KilowattPerHour, Liter}
+import ru.aboba.backend.types.{Power, Liter}
 
 trait StatsService[F[_]] {
   def getAverageShowerTime: F[AverageTime]
@@ -22,7 +22,7 @@ object StatsService {
       Applicative[F].pure {
         WaterConsumption(
           liters = Liter.from(140.31),
-          kWh = KilowattPerHour.from(510.10)
+          kWh = Power.from(510.10)
         )
       }
   }
