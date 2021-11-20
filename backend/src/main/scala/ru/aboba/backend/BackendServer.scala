@@ -19,7 +19,7 @@ object BackendServer {
     for {
       _ <- Stream.resource(EmberClientBuilder.default[F].build)
       dataService   = DataService.impl[F](resource)
-      ratingService = RatingService.impl[F]
+      ratingService = RatingService.impl[F](dataService)
       statsService  = StatsService.impl[F](dataService)
 
       // Combine Service Routes into an HttpApp.
