@@ -50,7 +50,8 @@ const App = () => {
 				});
 				renderer.setSize(width, height);
 				renderer.setPixelRatio(window.devicePixelRatio);
-				renderer.setClearColor(0x9ac2fe);
+				// background color
+				renderer.setClearColor(0xffffff);
 				renderer.shadowMap.enabled = true;
 				renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 				// @ts-ignore
