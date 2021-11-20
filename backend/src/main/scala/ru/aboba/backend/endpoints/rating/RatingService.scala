@@ -13,7 +13,7 @@ object RatingService {
 
     override def getUserRating: F[UserRating] =
       Applicative[F].pure {
-        new UserRating(totalUsers = 100, place = 40)
+        UserRating(totalUsers = 100, place = 40)
       }
   }
 
