@@ -1,13 +1,13 @@
 package ru.aboba.backend.endpoints.stats
 
 import cats.Applicative
-import ru.aboba.backend.endpoints.stats.models.{AverageTime, WaterConsumption}
-import ru.aboba.backend.types.{Power, Liter}
+import ru.aboba.backend.endpoints.stats.models.{AverageTime, Consumption, WaterConsumption}
+import ru.aboba.backend.types.{Liter, Power}
 
 trait StatsService[F[_]] {
   def getAverageShowerTime: F[AverageTime]
 
-  def getWaterConsumption: F[WaterConsumption]
+  def getConsumption(goal: Liter): F[Consumption]
 }
 
 object StatsService {
@@ -18,11 +18,14 @@ object StatsService {
         AverageTime(hours = 0, minutes = 45, seconds = 51)
       }
 
-    override def getWaterConsumption: F[WaterConsumption] =
+    override def getConsumption(goal: Liter): F[Consumption] =
       Applicative[F].pure {
-        WaterConsumption(
-          liters = Liter.from(140.31),
-          kWh = Power.from(510.10)
+        Consumption(
+          status = 0,
+          consumption = WaterConsumption(
+            liters = Liter.from(140.31),
+            kWh = Power.from(510.10)
+          )
         )
       }
   }
