@@ -361,8 +361,18 @@ const App = () => {
 				createBunnyShape(group,0.025,0.14,0.025,bunnyColor,0.025,0.05,0.23);
 				createBunnyShape(group,0.025,0.14,0.025,bunnyColor,-0.025,0.05,0.23);
 				// eyes
-				createBunnyShape(group,0.02,0.02,0.02,"red",0.025,0.02,0.25);
-				createBunnyShape(group,0.02,0.02,0.02,"red",-0.025,0.02,0.25);
+				createBunnyShape(group,0.01,0.01,0.01,"black",0.025,0.02,0.25);
+				createBunnyShape(group,0.01,0.01,0.01,"black",0.015,0.03,0.25);
+				createBunnyShape(group,0.01,0.01,0.01,"black",0.015,0.01,0.25);
+				createBunnyShape(group,0.01,0.01,0.01,"black",0.035,0.01,0.25);
+				createBunnyShape(group,0.01,0.01,0.01,"black",0.035,0.03,0.25);
+
+				createBunnyShape(group,0.01,0.01,0.01,"black",-0.025,0.02,0.25);
+				createBunnyShape(group,0.01,0.01,0.01,"black",-0.015,0.03,0.25);
+				createBunnyShape(group,0.01,0.01,0.01,"black",-0.015,0.01,0.25);
+				createBunnyShape(group,0.01,0.01,0.01,"black",-0.035,0.01,0.25);
+				createBunnyShape(group,0.01,0.01,0.01,"black",-0.035,0.03,0.25);
+
 				mainGroup.add(group);
 				// https://stackoverflow.com/questions/28848863/threejs-how-to-rotate-around-objects-own-center-instead-of-world-center
 				let box = new THREE.Box3().setFromObject( group );
@@ -579,7 +589,7 @@ const App = () => {
 			createMailbox();
 			// bunnies
 			createBunny(bunnyGroup2,-1,0.33,-1,pivot2);
-			animateBunnyEyes(bunnyGroup2,gsap.utils.random(0,3,0.4));
+			// animateBunnyEyes(bunnyGroup2,gsap.utils.random(0,3,0.4));
 			render();
 		}
 	}, [canvasRef])
