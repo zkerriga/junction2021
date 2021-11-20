@@ -27,8 +27,8 @@ const App = () => {
 				brown2:0xC88247,
 				red : 0xfd4d50,
 				green: 0xa4d740,
-				green2: 0x66b888,
-				green3 : 0x2C9D3E,
+				green2: 0x0add08,
+				green3 : 0x0add08,
 				house : 0xfce3ad,
 				purple : 0x6e5370,
 				gold:0xFFF09C,
@@ -39,7 +39,7 @@ const App = () => {
 			const setup = () => {
 				// scene
 				scene = new THREE.Scene();
-				scene.fog = new THREE.FogExp2(0x00c2fe, 0.14);
+				scene.fog = new THREE.FogExp2(0x00c2fe, 0.07);
 				// camera
 				camera = new THREE.PerspectiveCamera(fov, aspectRatio, near, far);
 				scene.add( camera );
@@ -111,7 +111,7 @@ const App = () => {
 				let water = new THREE.Mesh(boxGeo, mat3);
 				water.receiveShadow = true;
 				islandGroup.add(water);
-				water.scale.set(0.1, 0.5, 4);
+				water.scale.set(0.5, 0.5, 4);
 				water.position.set(0.75, 0.005, 0.005);
 				mainGroup.add(islandGroup);
 			}
@@ -174,7 +174,7 @@ const App = () => {
 				trunk.castShadow = true;
 				trunk.receiveShadow = true;
 				// leaves
-				let geo2 = new THREE.SphereBufferGeometry(0.25, 12, 12);
+				let geo2 = new THREE.SphereBufferGeometry(0.33, 12, 12);
 				let mat2 = new THREE.MeshLambertMaterial({
 					color: colors.green2
 				});
@@ -401,7 +401,7 @@ const App = () => {
 				const tl = gsap.timeline(
 					{defaults:{duration:1,ease:"sine.in"},
 						onStart:() => {
-							gsap.set(det.position,{x:gsap.utils.random(0.60,0.92),z:gsap.utils.random(-4,1.8)});
+							gsap.set(det.position,{x:gsap.utils.random(0.60,0.92),z:gsap.utils.random(-1.8,1.8)});
 							gsap.set(det.rotation,{y:0,z:0});
 							gsap.set(det.material,{opacity:0});
 						},
