@@ -9,22 +9,23 @@ import org.http4s.ember.server.EmberServerBuilder
 import org.http4s.implicits._
 import org.http4s.server.middleware.Logger
 import ru.aboba.backend.endpoints.rating.{RatingEndpoint, RatingService}
+import ru.aboba.backend.endpoints.stats.{StatsEndpoint, StatsService}
 
 object BackendServer {
 
   def stream[F[_]: Async]: Stream[F, Nothing] = {
     for {
       _ <- Stream.resource(EmberClientBuilder.default[F].build)
-      helloWorldAlg = HelloWorld.impl[F]
       ratingService = RatingService.impl[F]
+      statsService  = StatsService.impl[F]
 
       // Combine Service Routes into an HttpApp.
       // Can also be done via a Router if you
       // want to extract a segments not checked
       // in the underlying routes.
       httpApp = (
-        BackendRoutes.helloWorldRoutes[F](helloWorldAlg) <+>
-          RatingEndpoint.routes[F](ratingService)
+        RatingEndpoint.routes[F](ratingService) <+>
+          StatsEndpoint.routes[F](statsService)
       ).orNotFound
 
       // With Middlewares in place
