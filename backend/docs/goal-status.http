@@ -1,0 +1,10 @@
+GET http://localhost:8080/user/stats/consumption?goalLiters=141.41
+Accept: application/json
+
+#{
+#  "status": -0.1 // от -1 до 1
+#  "consumption": {
+#   "liters": 140.31,
+#   "kWh": 510.1
+#  }
+#}
