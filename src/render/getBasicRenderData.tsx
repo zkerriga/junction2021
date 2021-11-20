@@ -2,8 +2,8 @@ import * as THREE from "three";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import {IColors} from "../model/model";
 
-const width = window.innerWidth;
-const height = window.innerHeight;
+const width = window.innerWidth - 32;
+const height = window.innerHeight * 0.4;
 const fov = 75;
 const aspectRatio = width / height;
 const near = 0.001;
