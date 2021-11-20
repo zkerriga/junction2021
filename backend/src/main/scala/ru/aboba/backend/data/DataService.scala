@@ -7,6 +7,8 @@ import ru.aboba.backend.data.models.{Apartment, Data, Measurement}
 import ru.aboba.backend.types.Liter
 import ru.aboba.backend.types.Liter.Ops
 
+import java.time.LocalDateTime
+
 trait DataService[F[_]] {
   def getUserPeopleCount: F[Int]
 
@@ -27,21 +29,6 @@ object DataService {
     override def getUserMeasurements: F[Vector[Measurement]] =
       getUserApartment map familyMeasurements
 
-    private def getUserApartment: F[Apartment] =
-      Sync[F].fromOption(
-        data.houses.headOption flatMap { house =>
-          house.apartments.headOption
-        },
-        FamilyNotFoundError()
-      )
-
-    private def familyMeasurements(ap: Apartment): Vector[Measurement] =
-      ap.shower.measurements ++
-        ap.bathFaucet.measurements ++
-        ap.dishwasher.measurements ++
-        ap.kitchenFaucet.measurements ++
-        ap.washingMachine.measurements
-
     override def getOtherFamiliesConsumption: F[Vector[(Int, Liter)]] =
       Applicative[F].pure {
         data.houses flatMap { house =>
@@ -53,6 +40,30 @@ object DataService {
         }
       }
 
+    // internal
+
+    private def getUserApartment: F[Apartment] =
+      Sync[F].fromOption(
+        data.houses.headOption flatMap { house =>
+          house.apartments.headOption
+        },
+        FamilyNotFoundError()
+      )
+
+    private def familyMeasurements(ap: Apartment): Vector[Measurement] =
+      filterForMonth(
+        ap.shower.measurements ++
+          ap.bathFaucet.measurements ++
+          ap.dishwasher.measurements ++
+          ap.kitchenFaucet.measurements ++
+          ap.washingMachine.measurements
+      )
+
+    private def filterForMonth(measurements: Vector[Measurement]): Vector[Measurement] =
+      measurements.filter { measurement =>
+        val dateTime: LocalDateTime = measurement.timestamp
+        dateTime.isAfter(LocalDateTime.of(2020, 12, 1, 0, 0)) // :)
+      }
   }
 
   def impl[F[_]: Sync](data: Data): DataService[F] =

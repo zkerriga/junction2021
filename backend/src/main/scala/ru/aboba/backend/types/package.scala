@@ -60,9 +60,11 @@ package object types {
 
     implicit class Ops(private val coefficient: ConsumptionStatus) extends AnyVal {
       def normalize: ConsumptionStatus =
-        if (coefficient > 1) ConsumptionStatus.best
-        else if (coefficient < -1) ConsumptionStatus.worst
-        else coefficient
+        ConsumptionStatus(
+          ((if (coefficient > 1) ConsumptionStatus.best
+            else if (coefficient < -1) ConsumptionStatus.worst
+            else coefficient) + 1) / 2
+        )
     }
   }
   type ConsumptionStatus = ConsumptionStatus.Type
