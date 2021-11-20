@@ -36,11 +36,9 @@ const App = ({ setState }: AppProps) => {
 
 	return (
 		<Container>
-			<h1>Junction 21</h1>
 			<GoalInfo goal={state.goal} currentConsumption={state.consumption.liters}/>
-			{/*<Canvas />*/}
+			<Canvas />
 			<GoalSelector
-				// updateGoal={changeGoalHandler}
 				updateGoal={changeGoalHandler}
 				goal={state.goal}/>
 		</Container>

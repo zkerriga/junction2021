@@ -1,7 +1,6 @@
-import React, {useEffect, useReducer, useState} from 'react';
+import React, { useState} from 'react';
 import App from "../App/App";
 import {StoreContext} from "../../context/storeContext";
-import axios from "axios";
 import {State} from "../../types/stateTypes";
 
 const AppData = () => {
@@ -15,21 +14,13 @@ const AppData = () => {
 			totalUsers: 0,
 			place: 0,
 		},
-		goal: 100,
+		goal: 0,
 		status: 0,
 		consumption: {
 			liters: 0,
 			kWh: 0,
 		},
 	})
-
-	useEffect(() => {
-		// axios.get('./mock/goal.json').then((res) => {
-		// 	dispatch(setGoal(res.data));
-		// })
-	}, [])
-
-	console.log(state);
 
 	return (
 		<StoreContext.Provider value={state}>
