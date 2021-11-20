@@ -242,7 +242,7 @@ const Canvas = () => {
 
 	return (
 		<StyledContainer>
-			<canvas ref={canvasRef} />
+			<canvas ref={canvasRef} height={window.innerHeight * 0.6}/>
 		</StyledContainer>
 	);
 };

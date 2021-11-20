@@ -8,6 +8,7 @@ const StyledContainer = styled.div`
   padding: 16px;
   border-radius: 16px;
   margin-bottom: 16px;
+  margin-top: 16px;
 `
 
 const StyledTitle = styled.h3`
@@ -61,12 +62,11 @@ const StyledAmount = styled.div`
 `
 
 const StyledArrow = styled.div<{ direction: 'left' | 'right'}>`
-  border: solid black;
+  border: solid #4F4B4B;
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
   cursor: pointer;
-  border-color: #4F4B4B;
 
   transform: rotate(${({direction}) => direction === 'left' ? '-45deg' : '135deg'});
 `
@@ -77,11 +77,6 @@ interface GoalSelectorProps {
 }
 
 const GoalSelector = ({goal, updateGoal}: GoalSelectorProps) => {
-	// const { goal: goalNumber } = useContext(StoreContext)
-	// const handler = () => {
-	// 	getUpdatedGoal()
-	// }
-
 	return (
 		<StyledContainer>
 			<StyledTitle>BUILD NEW GOAL</StyledTitle>
