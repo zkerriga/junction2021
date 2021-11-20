@@ -4,9 +4,10 @@ import io.circe.Encoder
 import io.circe.generic.semiauto.deriveEncoder
 import org.http4s.EntityEncoder
 import org.http4s.circe.jsonEncoderOf
+import ru.aboba.backend.types.ConsumptionStatus
 
 final case class Consumption(
-    status: Double,
+    status: ConsumptionStatus,
     consumption: WaterConsumption
 )
 

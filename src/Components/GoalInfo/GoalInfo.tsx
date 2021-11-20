@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 const StyledContainer = styled.div`
   	width: 100%;
@@ -26,9 +26,10 @@ const StyledRange = styled.div<{ consumptionPercent: number, date: number }>`
 	content: '';
 	height: 16px;
     border-radius: 8px;
-	width: calc(100% * ${({consumptionPercent}) => consumptionPercent});
+	width: ${({consumptionPercent}) => 100 * consumptionPercent}%;
+	max-width: 100%;
 	display: block;
-    background: rgba(110, 194, 140, 0.6);
+    background: ${({consumptionPercent, date}) => 100 * consumptionPercent > (date / 30) * 100 ? '#F98181' : 'rgba(110, 194, 140, 0.6)'};
   }
   
   &::after {
