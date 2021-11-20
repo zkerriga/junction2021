@@ -73,9 +73,10 @@ const StyledArrow = styled.div<{ direction: 'left' | 'right'}>`
 
 interface GoalSelectorProps {
 	goal: number;
+	updateGoal: (newGoal: number) => void
 }
 
-const GoalSelector = ({goal}: GoalSelectorProps) => {
+const GoalSelector = ({goal, updateGoal}: GoalSelectorProps) => {
 	// const { goal: goalNumber } = useContext(StoreContext)
 	// const handler = () => {
 	// 	getUpdatedGoal()
@@ -86,12 +87,12 @@ const GoalSelector = ({goal}: GoalSelectorProps) => {
 			<StyledTitle>BUILD NEW GOAL</StyledTitle>
 			<StyledSubTitle>Set a new goal for greater results</StyledSubTitle>
 			<StyledSelectorContainer>
-				<StyledArrow direction="right"/>
+				<StyledArrow direction="right" onClick={() => updateGoal(-25)}/>
 				<StyledSelectorHero>
 					<StyledAmount>{goal}</StyledAmount>
 					<StyledAmount>l/month</StyledAmount>
 				</StyledSelectorHero>
-				<StyledArrow direction="left"/>
+				<StyledArrow direction="left" onClick={() => updateGoal(25)}/>
 			</StyledSelectorContainer>
 		</StyledContainer>
 	);

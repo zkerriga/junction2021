@@ -1,38 +1,48 @@
 import React, {useContext} from 'react';
-import {ActionType} from "../../store/reducer";
 import GoalInfo from "../GoalInfo/GoalInfo";
 import styled from "styled-components";
 import Canvas from "../Canvas/Canvas";
 import GoalSelector from "../GoalSelector/GoalSelector";
 import {StoreContext} from "../../context/storeContext";
 import {getUpdatedGoal} from "../../api/api";
-import {setGoal} from "../../store/actions/goal/action-creator";
+import {State} from "../../types/stateTypes";
 
 const Container = styled.div`
 	padding: 16px;
 `
 
 interface AppProps {
-	dispatch:  React.Dispatch<ActionType>
+	setState: React.Dispatch<React.SetStateAction<State>>
 }
 
-const App = ({ dispatch }: AppProps) => {
+const App = ({ setState }: AppProps) => {
 	const state = useContext(StoreContext);
 
-	// const changeGoalHandler = (newGoal: number) => {
-	// 	getUpdatedGoal(newGoal).then((data) => {
-	// 		dispatch(setGoal({...data}));
-	// 	})
-	// }
+	const changeGoalHandler = (newGoal: number) => {
+		if (state.goal + newGoal >= 0) {
+			getUpdatedGoal(newGoal).then(data => {
+				setState(prevState => ({
+					...prevState,
+					goal: prevState.goal + newGoal,
+					status: data.status,
+					consumption: {
+						...data.consumption
+					}
+				}))
+			})
+		}
+	}
+
 
 	return (
 		<Container>
 			<h1>Junction 21</h1>
-			{/*<GoalInfo goal={100} currentConsumption={99}/>*/}
+			<GoalInfo goal={state.goal} currentConsumption={state.consumption.liters}/>
 			{/*<Canvas />*/}
 			<GoalSelector
-
-				goal={0}/>
+				// updateGoal={changeGoalHandler}
+				updateGoal={changeGoalHandler}
+				goal={state.goal}/>
 		</Container>
 	);
 };

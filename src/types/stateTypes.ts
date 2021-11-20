@@ -14,13 +14,10 @@ export interface Consumption {
 	kWh: number,
 }
 
-export interface Goal {
-	consumption: Consumption,
-	status: number
-}
-
 export interface State {
 	time: Time,
 	rating: Rating,
-	goal: Goal,
+	goal: number,
+	consumption: Consumption,
+	status: number
 }
