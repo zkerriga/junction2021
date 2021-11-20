@@ -1,4 +1,8 @@
 GET http://localhost:8080/user/stats/shower/time
 Accept: application/json
 
-###
+#{
+#  "hours": 0,
+#  "minutes": 45,
+#  "seconds": 51
+#}
