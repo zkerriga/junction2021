@@ -25,10 +25,10 @@ const App = () => {
 				blue: 0x71b6f7,
 				brown: 0x744436,
 				brown2:0xC88247,
-				red : 0xfd4d50,
-				green: 0xa4d740,
-				green2: 0x0add08,
-				green3 : 0x0add08,
+				red : 0xAD3210,
+				green: 0xc2b53d,
+				green2: 0xB87008,
+				green3 : 0xC36F0A,
 				house : 0xfce3ad,
 				purple : 0x6e5370,
 				gold:0xFFF09C,
@@ -39,7 +39,7 @@ const App = () => {
 			const setup = () => {
 				// scene
 				scene = new THREE.Scene();
-				scene.fog = new THREE.FogExp2(0x00c2fe, 0.07);
+				scene.fog = new THREE.FogExp2(0x867c79, 0.12);
 				// camera
 				camera = new THREE.PerspectiveCamera(fov, aspectRatio, near, far);
 				scene.add( camera );
@@ -108,23 +108,31 @@ const App = () => {
 				let mat3 = new THREE.MeshLambertMaterial({
 					color: colors.blue
 				});
+				let matDirt = new THREE.MeshLambertMaterial({
+					color: colors.brown
+				});
 				let water = new THREE.Mesh(boxGeo, mat3);
+				let dirt = new THREE.Mesh(boxGeo, matDirt);
+
 				water.receiveShadow = true;
 				islandGroup.add(water);
-				water.scale.set(0.5, 0.5, 4);
-				water.position.set(0.75, 0.005, 0.005);
+				islandGroup.add(dirt);
+				dirt.scale.set(0.5, 0.5, 4);
+				dirt.position.set(0.75, 0.005, 0.005);
+				water.scale.set(0.1, 0.51, 4.01);
+				water.position.set(0.75, 0.009, 0.006);
 				mainGroup.add(islandGroup);
 			}
 
 // waterfall particles
-			let dropCount = 100;
+			let dropCount = 2;
 			// @ts-ignore
 			let drops = [];
 // water details
-			let detailCount = 24;
+			let detailCount = 2;
 			// @ts-ignore
 			let dets = [];
-			let detailCount2 = 8;
+			let detailCount2 = 2;
 			// @ts-ignore
 			let dets2 = [];
 
@@ -164,7 +172,7 @@ const App = () => {
 			// @ts-ignore
 			const createTree = (trunkX, trunkY, trunkZ, leavesX, leavesY, leavesZ) => {
 				// trunk
-				let geo = new THREE.CylinderBufferGeometry(0.1, 0.1, 1, 10);
+				let geo = new THREE.CylinderBufferGeometry(0.05, 0.05, 1, 10);
 				let mat = new THREE.MeshLambertMaterial({
 					color: colors.brown
 				});
@@ -174,7 +182,7 @@ const App = () => {
 				trunk.castShadow = true;
 				trunk.receiveShadow = true;
 				// leaves
-				let geo2 = new THREE.SphereBufferGeometry(0.33, 12, 12);
+				let geo2 = new THREE.SphereBufferGeometry(0.2, 12, 12);
 				let mat2 = new THREE.MeshLambertMaterial({
 					color: colors.green2
 				});
@@ -188,7 +196,7 @@ const App = () => {
 
 			// @ts-ignore
 			const createBush = (x,y,z) => {
-				let geo = new THREE.SphereBufferGeometry(0.15,8,8);
+				let geo = new THREE.SphereBufferGeometry(0.12,8,8);
 				let mat = new THREE.MeshLambertMaterial({color:colors.green3});
 				let bush = new THREE.Mesh(geo,mat);
 				bush.position.set(x,y,z);
@@ -288,7 +296,7 @@ const App = () => {
 			const createPuffs = () => {
 				for (let i = 0; i < puffCount; i++) {
 					const geo = new THREE.SphereBufferGeometry(0.1,6, 6);
-					const mat = new THREE.MeshLambertMaterial({color:0xffffff,transparent:true});
+					const mat = new THREE.MeshLambertMaterial({color:0x000000,transparent:true});
 					puff = new THREE.Mesh(geo,mat);
 					puffs.push(puff);
 					houseGroup.add(puff);
@@ -353,8 +361,8 @@ const App = () => {
 				createBunnyShape(group,0.025,0.14,0.025,bunnyColor,0.025,0.05,0.23);
 				createBunnyShape(group,0.025,0.14,0.025,bunnyColor,-0.025,0.05,0.23);
 				// eyes
-				createBunnyShape(group,0.02,0.02,0.02,"black",0.025,0.02,0.25);
-				createBunnyShape(group,0.02,0.02,0.02,"black",-0.025,0.02,0.25);
+				createBunnyShape(group,0.02,0.02,0.02,"red",0.025,0.02,0.25);
+				createBunnyShape(group,0.02,0.02,0.02,"red",-0.025,0.02,0.25);
 				mainGroup.add(group);
 				// https://stackoverflow.com/questions/28848863/threejs-how-to-rotate-around-objects-own-center-instead-of-world-center
 				let box = new THREE.Box3().setFromObject( group );
@@ -376,7 +384,7 @@ const App = () => {
 			const animateDrop = (drop) => {
 				const tl = gsap.timeline({
 					onStart: () => {
-						gsap.set(drop.position,{ y: gsap.utils.random(-0.17,0,0.01) })
+						gsap.set(drop.position,{ y: gsap.utils.random(0.022, 0.021, 0.022) })
 						gsap.set(drop.scale,{x:0.1,y:0.1,z:0.1})
 					},
 					// @ts-ignore
@@ -401,7 +409,7 @@ const App = () => {
 				const tl = gsap.timeline(
 					{defaults:{duration:1,ease:"sine.in"},
 						onStart:() => {
-							gsap.set(det.position,{x:gsap.utils.random(0.60,0.92),z:gsap.utils.random(-1.8,1.8)});
+							gsap.set(det.position,{x:gsap.utils.random(0.72,0.74),z:gsap.utils.random(-1.8,1.8)});
 							gsap.set(det.rotation,{y:0,z:0});
 							gsap.set(det.material,{opacity:0});
 						},
@@ -421,7 +429,7 @@ const App = () => {
 				const tl = gsap.timeline(
 					{defaults:{duration:1,ease:"sine.in"},
 						onStart:() => {
-							gsap.set(det.position,{x:gsap.utils.random(0.60,0.92),y:gsap.utils.random(-0.18,0.20)});
+							gsap.set(det.position,{x:gsap.utils.random(0.72,0.74),y:gsap.utils.random(-0.18,0.20)});
 							gsap.set(det.rotation,{y:0,z:0});
 							gsap.set(det.material,{opacity:0});
 						},
@@ -548,24 +556,17 @@ const App = () => {
 			animateParticles(animateDet2,dets2);
 			// trees
 			// trees next to house
-			createTree(0, 0.75, -0.1, 0, 1.2, -0.1);
-			createTree(-1.50, 0.75, -0.1, -1.50, 1.2, -0.1);
-			createTree(-0.75, 0.75, -0.5, -0.75, 1.2, -0.5);
-			createTree(0, 0.75, -1, 0, 1.2, -1);
-			createTree(-1.50, 0.75, -1, -1.50, 1.2, -1);
-			createTree(-0.75, 0.75, -1.5, -0.75, 1.2, -1.5);
+			createTree(0, 0.5, -0.1, 0, 0.9, -0.1);
+			createTree(-1.50, 0.5, -1, -1.50, 0.9, -1);
+			createTree(-0.75, 0.5, -1.5, -0.75, 0.9, -1.5);
 			// other trees
-			createTree(1.5, 0.75, -1.5, 1.5, 1.2, -1.5);
-			createTree(1.5, 0.75, -0.5, 1.5, 1.2, -0.5);
-			createTree(1.5, 0.75, 0.5, 1.5, 1.2, 0.5);
+			createTree(1.5, 0.5, -1.5, 1.5, 0.9, -1.5);
+			createTree(1.5, 0.5, 0.5, 1.5, 0.9, 0.5);
 			// bushes next to house
 			createBush(-0.7,0.28,-0.1);
-			createBush(-0.7,0.28,-1);
-			createBush(-1.55,0.28,-0.6);
 			createBush(-1.35,0.28,-1.5);
 			//
 			createBush(1.5,0.28,1);
-			createBush(1.5,0.28,0);
 			createBush(1.5,0.28,-1);
 			// house
 			createHouse();
@@ -577,15 +578,8 @@ const App = () => {
 			// mailbox
 			createMailbox();
 			// bunnies
-			createBunny(bunnyGroup1,0,0.33,0.2,pivot1);
 			createBunny(bunnyGroup2,-1,0.33,-1,pivot2);
-			createBunny(bunnyGroup3,-0.2,0.33,-1.4,pivot3);
-			animateBunny(pivot1,0);
-			animateBunny(pivot2,gsap.utils.random(0,3,0.4));
-			animateBunny(pivot3,gsap.utils.random(0,3,0.4));
-			animateBunnyEyes(bunnyGroup1,0);
 			animateBunnyEyes(bunnyGroup2,gsap.utils.random(0,3,0.4));
-			animateBunnyEyes(bunnyGroup3,gsap.utils.random(0,3,0.4));
 			render();
 		}
 	}, [canvasRef])
