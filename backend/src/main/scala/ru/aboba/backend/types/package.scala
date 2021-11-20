@@ -12,6 +12,8 @@ package object types {
 
   @derive(decoder, encoder)
   object Liter extends TaggedType[BigDecimal] {
+    val zero: Liter = Liter(BigDecimal(0))
+
     def from(d: Double): Liter =
       Liter(BigDecimal(d))
 
@@ -19,6 +21,10 @@ package object types {
       QueryParamDecoder[Double].map(Liter.from)
 
     object LiterParamMatcher extends QueryParamDecoderMatcher[Liter]("goalLiters")
+
+    implicit class Ops(private val liter: Liter) extends AnyVal {
+      def plus(other: Liter): Liter = Liter(liter + other)
+    }
   }
   type Liter = Liter.Type
 
