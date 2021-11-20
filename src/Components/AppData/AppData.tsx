@@ -9,9 +9,9 @@ const AppData = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
 	useEffect(() => {
-		axios.get('./mock/goal.json').then((res) => {
-			dispatch(setGoal(res.data));
-		})
+		// axios.get('./mock/goal.json').then((res) => {
+		// 	dispatch(setGoal(res.data));
+		// })
 	}, [])
 
 	return (
