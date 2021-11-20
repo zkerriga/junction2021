@@ -4,6 +4,8 @@ import derevo.circe.{decoder, encoder}
 import derevo.derive
 import supertagged.TaggedType
 
+import java.time.LocalDateTime
+
 package object types {
 
   @derive(decoder, encoder)
@@ -19,5 +21,17 @@ package object types {
       Power(BigDecimal(d))
   }
   type Power = Power.Type
+
+  @derive(decoder, encoder)
+  object Temperature extends TaggedType[BigDecimal]
+  type Temperature = Temperature.Type
+
+  @derive(decoder, encoder)
+  object FlowTime extends TaggedType[BigDecimal]
+  type FlowTime = FlowTime.Type
+
+  @derive(decoder, encoder)
+  object Timestamp extends TaggedType[LocalDateTime]
+  type Timestamp = Timestamp.Type
 
 }
