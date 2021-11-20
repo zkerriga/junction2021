@@ -2,8 +2,6 @@ package ru.aboba.backend
 
 import derevo.circe.{decoder, encoder}
 import derevo.derive
-import org.http4s.QueryParamDecoder
-import org.http4s.dsl.impl.QueryParamDecoderMatcher
 import supertagged.TaggedType
 
 import java.time.LocalDateTime
@@ -14,11 +12,6 @@ package object types {
   object Liter extends TaggedType[BigDecimal] {
     def from(d: Double): Liter =
       Liter(BigDecimal(d))
-
-    implicit val literDecoder: QueryParamDecoder[Liter] =
-      QueryParamDecoder[Double].map(Liter.from)
-
-    object LiterParamMatcher extends QueryParamDecoderMatcher[Liter]("goalLiters")
   }
   type Liter = Liter.Type
 

@@ -4,7 +4,6 @@ import cats.effect.kernel.Sync
 import cats.implicits._
 import org.http4s.HttpRoutes
 import org.http4s.dsl.Http4sDsl
-import ru.aboba.backend.types.Liter.LiterParamMatcher
 
 object StatsEndpoint {
 
@@ -19,9 +18,9 @@ object StatsEndpoint {
           response <- Ok(stats)
         } yield response
 
-      case GET -> Root / "user" / "stats" / "consumption" :? LiterParamMatcher(liter) =>
+      case GET -> Root / "user" / "stats" / "water" / "consumption" =>
         for {
-          consumption <- service.getConsumption(liter)
+          consumption <- service.getWaterConsumption
           response    <- Ok(consumption)
         } yield response
     }
