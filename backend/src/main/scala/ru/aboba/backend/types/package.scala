@@ -56,15 +56,16 @@ package object types {
   @derive(decoder, encoder)
   object ConsumptionStatus extends TaggedType[BigDecimal] {
     val best: ConsumptionStatus  = ConsumptionStatus(BigDecimal(1))
-    val worst: ConsumptionStatus = ConsumptionStatus(BigDecimal(-1))
+    val worst: ConsumptionStatus = ConsumptionStatus(BigDecimal(0))
 
     implicit class Ops(private val coefficient: ConsumptionStatus) extends AnyVal {
-      def normalize: ConsumptionStatus =
-        ConsumptionStatus(
-          ((if (coefficient > 1) ConsumptionStatus.best
-            else if (coefficient < -1) ConsumptionStatus.worst
-            else coefficient) + 1) / 2
-        )
+      def normalize: ConsumptionStatus = {
+        val withK = ConsumptionStatus(coefficient * 1.2)
+
+        if (withK > best) ConsumptionStatus.best
+        else if (withK < worst) ConsumptionStatus.worst
+        else withK
+      }
     }
   }
   type ConsumptionStatus = ConsumptionStatus.Type
