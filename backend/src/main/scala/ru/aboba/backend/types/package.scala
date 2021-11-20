@@ -30,8 +30,14 @@ package object types {
 
   @derive(decoder, encoder)
   object Power extends TaggedType[BigDecimal] {
+    val zero: Power = Power(BigDecimal(0))
+
     def from(d: Double): Power =
       Power(BigDecimal(d))
+
+    implicit class Ops(private val power: Power) extends AnyVal {
+      def plus(other: Power): Power = Power(power + other)
+    }
   }
   type Power = Power.Type
 
@@ -46,5 +52,19 @@ package object types {
   @derive(decoder, encoder)
   object Timestamp extends TaggedType[LocalDateTime]
   type Timestamp = Timestamp.Type
+
+  @derive(decoder, encoder)
+  object ConsumptionStatus extends TaggedType[BigDecimal] {
+    val best: ConsumptionStatus  = ConsumptionStatus(BigDecimal(1))
+    val worst: ConsumptionStatus = ConsumptionStatus(BigDecimal(-1))
+
+    implicit class Ops(private val coefficient: ConsumptionStatus) extends AnyVal {
+      def normalize: ConsumptionStatus =
+        if (coefficient > 1) ConsumptionStatus.best
+        else if (coefficient < -1) ConsumptionStatus.worst
+        else coefficient
+    }
+  }
+  type ConsumptionStatus = ConsumptionStatus.Type
 
 }

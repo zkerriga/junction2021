@@ -55,4 +55,6 @@ object DataService {
 
   }
 
+  def impl[F[_]: Sync](data: Data): DataService[F] =
+    new Impl[F](data)
 }
