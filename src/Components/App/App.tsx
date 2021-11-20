@@ -1,20 +1,26 @@
 import gsap from 'gsap';
 import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
-import { getBasicRenderInstance, getSettings } from "./render/getBasicRenderData";
-import { setup } from "./render/setup";
-import { createIsland, animateIsland } from "./render/island";
-import { createParticles, animateParticles, animateDrop } from "./render/particles";
-import { createHouse } from "./render/house";
-import {animateBunny, animateBunnyEyes, createBunny} from "./render/bunny";
-import {createMailbox} from "./render/mailbox";
+import { getBasicRenderInstance, getSettings } from "../../render/getBasicRenderData";
+import { setup } from "../../render/setup";
+import { createIsland, animateIsland } from "../../render/island";
+import { createParticles, animateParticles, animateDrop } from "../../render/particles";
+import { createHouse } from "../../render/house";
+import {animateBunny, animateBunnyEyes, createBunny} from "../../render/bunny";
+import {createMailbox} from "../../render/mailbox";
 import { Mesh } from "three";
-import {createTree} from "./render/tree";
-import {createBush} from "./render/bush"
-import {animatePuff, createPuffs} from "./render/puff";
-import {animateDet, animateDet2} from "./render/waterDetail";
+import {createTree} from "../../render/tree";
+import {createBush} from "../../render/bush"
+import {animatePuff, createPuffs} from "../../render/puff";
+import {animateDet, animateDet2} from "../../render/waterDetail";
+import {ActionType} from "../../store/reducer";
 
-const App = () => {
+
+interface AppProps {
+	dispatch:  React.Dispatch<ActionType>
+}
+
+const App = ({ dispatch }: AppProps) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
 
