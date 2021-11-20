@@ -12,7 +12,7 @@ export const createTree = (
 	treeGroup: Group,
 	mainGroup: Group) => {
 	// trunk
-	let geo = new THREE.CylinderBufferGeometry(0.1, 0.1, 1, 10);
+	let geo = new THREE.CylinderBufferGeometry(0.05, 0.05, 1, 10);
 	let mat = new THREE.MeshLambertMaterial({
 		color: colors.brown
 	});
@@ -23,7 +23,7 @@ export const createTree = (
 	trunk.receiveShadow = true;
 
 	// leaves
-	let geo2 = new THREE.SphereBufferGeometry(0.25, 12, 12);
+	let geo2 = new THREE.SphereBufferGeometry(0.2, 12, 12);
 	let mat2 = new THREE.MeshLambertMaterial({
 		color: colors.green2
 	});

@@ -5,7 +5,7 @@ import gsap from "gsap";
 export const createPuffs = (puffCount: number, puffs: Mesh[], houseGroup: Group) => {
 	for (let i = 0; i < puffCount; i++) {
 		const geo = new THREE.SphereBufferGeometry(0.1,6, 6);
-		const mat = new THREE.MeshLambertMaterial({color:0xffffff,transparent:true});
+		const mat = new THREE.MeshLambertMaterial({color:0x000000,transparent:true});
 		const puff = new THREE.Mesh(geo,mat);
 		puffs.push(puff);
 		houseGroup.add(puff);

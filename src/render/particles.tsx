@@ -67,7 +67,7 @@ export const animateParticles = (fn: (elem: Mesh) => any, array: Mesh[]) => {
 export const animateDrop = (drop: Mesh) => {
 	const tl = gsap.timeline({
 		onStart: () => {
-			gsap.set(drop.position,{ y: gsap.utils.random(-0.17,0,0.01) })
+			gsap.set(drop.position,{ y: gsap.utils.random(0.022, 0.021, 0.022) })
 			gsap.set(drop.scale,{x:0.1,y:0.1,z:0.1})
 		},
 		// @ts-ignore

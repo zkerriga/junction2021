@@ -6,7 +6,7 @@ export const animateDet = (det: Mesh) => {
 	const tl = gsap.timeline(
 		{defaults:{duration:1,ease:"sine.in"},
 			onStart:() => {
-				gsap.set(det.position,{x:gsap.utils.random(0.60,0.92),z:gsap.utils.random(-4,1.8)});
+				gsap.set(det.position,{x:gsap.utils.random(0.72,0.74),z:gsap.utils.random(-1.8,1.8)});
 				gsap.set(det.rotation,{y:0,z:0});
 				gsap.set(det.material,{opacity:0});
 			},
@@ -25,7 +25,7 @@ export const animateDet2 = (det: Mesh) => {
 	const tl = gsap.timeline(
 		{defaults:{duration:1,ease:"sine.in"},
 			onStart:() => {
-				gsap.set(det.position,{x:gsap.utils.random(0.60,0.92),y:gsap.utils.random(-0.18,0.20)});
+				gsap.set(det.position,{x:gsap.utils.random(0.72,0.74),y:gsap.utils.random(-0.18,0.20)});
 				gsap.set(det.rotation,{y:0,z:0});
 				gsap.set(det.material,{opacity:0});
 			},

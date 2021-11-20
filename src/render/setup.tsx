@@ -14,7 +14,7 @@ interface ISetup {
 
 export const setup = ({scene, camera, renderer, width, height, controls, mainGroup}: ISetup) => {
 	// scene
-	scene.fog = new THREE.FogExp2(0x00c2fe, 0.14);
+	scene.fog = new THREE.FogExp2(0x867c79, 0.14);
 	// camera
 	scene.add( camera );
 	renderer.setSize(width, height);

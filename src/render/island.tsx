@@ -34,11 +34,18 @@ export const createIsland = ({colors, mainGroup}: islandProps) => {
 	let mat3 = new THREE.MeshLambertMaterial({
 		color: colors.blue
 	});
+	let matDirt = new THREE.MeshLambertMaterial({
+		color: colors.brown
+	});
 	let water = new THREE.Mesh(boxGeo, mat3);
+	let dirt = new THREE.Mesh(boxGeo, matDirt);
 	water.receiveShadow = true;
 	islandGroup.add(water);
-	water.scale.set(0.1, 0.5, 4);
-	water.position.set(0.75, 0.005, 0.005);
+	islandGroup.add(dirt);
+	dirt.scale.set(0.5, 0.5, 4);
+	dirt.position.set(0.75, 0.005, 0.005);
+	water.scale.set(0.1, 0.51, 4.01);
+	water.position.set(0.75, 0.009, 0.007);
 	mainGroup.add(islandGroup);
 }
 

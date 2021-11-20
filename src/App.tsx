@@ -24,14 +24,14 @@ const App = () => {
 			const { mainGroup, scene, camera, renderer, controls} = getBasicRenderInstance(canvas);
 
 			// waterfall particles
-			let dropCount = 100;
+			let dropCount = 2;
 			let drops: Mesh[] = [];
 
 			// water details
-			let detailCount = 24;
+			let detailCount = 2;
 			let dets: Mesh[] = [];
 
-			let detailCount2 = 8;
+			let detailCount2 = 2;
 			let dets2: Mesh[] = [];
 
 			let treeGroup = new THREE.Group();
@@ -106,24 +106,26 @@ const App = () => {
 			animateParticles(animateDet2,dets2);
 			// trees
 			// trees next to house
-			createTree(0, 0.75, -0.1, 0, 1.2, -0.1, treeGroup, mainGroup);
-			createTree(-1.50, 0.75, -0.1, -1.50, 1.2, -0.1, treeGroup, mainGroup);
-			createTree(-0.75, 0.75, -0.5, -0.75, 1.2, -0.5, treeGroup, mainGroup);
-			createTree(0, 0.75, -1, 0, 1.2, -1, treeGroup, mainGroup);
-			createTree(-1.50, 0.75, -1, -1.50, 1.2, -1, treeGroup, mainGroup);
-			createTree(-0.75, 0.75, -1.5, -0.75, 1.2, -1.5, treeGroup, mainGroup);
+			// createTree(0, 0.75, -0.1, 0, 1.2, -0.1, treeGroup, mainGroup);
+			// createTree(-1.50, 0.75, -0.1, -1.50, 1.2, -0.1, treeGroup, mainGroup);
+			// createTree(-0.75, 0.75, -0.5, -0.75, 1.2, -0.5, treeGroup, mainGroup);
+			// createTree(0, 0.75, -1, 0, 1.2, -1, treeGroup, mainGroup);
+			// createTree(-1.50, 0.75, -1, -1.50, 1.2, -1, treeGroup, mainGroup);
+			// createTree(-0.75, 0.75, -1.5, -0.75, 1.2, -1.5, treeGroup, mainGroup);
+			createTree(0, 0.5, -0.1, 0, 0.9, -0.1, treeGroup, mainGroup);
+			createTree(-1.50, 0.5, -1, -1.50, 0.9, -1, treeGroup, mainGroup);
+			createTree(-0.75, 0.5, -1.5, -0.75, 0.9, -1.5, treeGroup, mainGroup);
 			// other trees
-			createTree(1.5, 0.75, -1.5, 1.5, 1.2, -1.5, treeGroup, mainGroup);
-			createTree(1.5, 0.75, -0.5, 1.5, 1.2, -0.5, treeGroup, mainGroup);
-			createTree(1.5, 0.75, 0.5, 1.5, 1.2, 0.5, treeGroup, mainGroup);
+			createTree(1.5, 0.5, -1.5, 1.5, 0.9, -1.5, treeGroup, mainGroup);
+			createTree(1.5, 0.5, 0.5, 1.5, 0.9, 0.5, treeGroup, mainGroup);
 			// bushes next to house
 			createBush(treeGroup, { x: -0.7, y: 0.28, z: -0.1});
-			createBush(treeGroup, { x: -0.7, y: 0.28, z: -1});
-			createBush(treeGroup, { x: -1.55, y: 0.28, z: -0.6});
+			// createBush(treeGroup, { x: -0.7, y: 0.28, z: -1});
+			// createBush(treeGroup, { x: -1.55, y: 0.28, z: -0.6});
 			createBush(treeGroup, { x: -1.35, y: 0.28, z: -1.5});
 			//treeGroup,
 			createBush(treeGroup, {x: 1.5, y: 0.28, z: 1});
-			createBush(treeGroup, {x: 1.5, y: 0.28, z: 0});
+			// createBush(treeGroup, {x: 1.5, y: 0.28, z: 0});
 			createBush(treeGroup, {x: 1.5, y: 0.28, z: -1});
 			// house
 			createHouse({colors, mainGroup});
@@ -134,16 +136,8 @@ const App = () => {
 			// mailbox
 			createMailbox(mainGroup);
 			// bunnies
-			createBunny(mainGroup, {group: bunnyGroup1, pivotPositionX: 0, pivotPositionY: 0.33, pivotPositionZ: 0.2, pivot: pivot1});
 			createBunny(mainGroup, {group: bunnyGroup2, pivotPositionX: -1,pivotPositionY:  0.33, pivotPositionZ: -1, pivot: pivot2});
-			createBunny(mainGroup, {group: bunnyGroup3, pivotPositionX: -0.2, pivotPositionY: 0.33, pivotPositionZ: -1.4, pivot: pivot3});
 
-			animateBunny(pivot1,0);
-			animateBunny(pivot2, gsap.utils.random(0,3,0.4));
-			animateBunny(pivot3, gsap.utils.random(0,3,0.4));
-			animateBunnyEyes(bunnyGroup1,0);
-			animateBunnyEyes(bunnyGroup2, gsap.utils.random(0,3,0.4));
-			animateBunnyEyes(bunnyGroup3, gsap.utils.random(0,3,0.4));
 			render();
 		}
 	}, [canvasRef])

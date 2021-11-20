@@ -33,8 +33,17 @@ export const createBunny = (mainGroup: Group, {group, pivotPositionX, pivotPosit
 	createBunnyShape({group, x: 0.025, y: 0.14, z: 0.025, color: bunnyColor, posX: 0.025, posY: 0.05, posZ: 0.23});
 	createBunnyShape({group, x: 0.025, y: 0.14, z: 0.025, color: bunnyColor, posX: -0.025, posY: 0.05, posZ: 0.23});
 	// eyes
-	createBunnyShape({group, x: 0.02, y: 0.02, z: 0.02, color: "black", posX: 0.025, posY: 0.02, posZ: 0.25});
-	createBunnyShape({group, x: 0.02, y: 0.02, z: 0.02, color: "black", posX: -0.025, posY: 0.02, posZ: 0.25});
+	createBunnyShape({group, x: 0.01, y: 0.01, z: 0.01, color: "black", posX: 0.025, posY: 0.02, posZ: 0.25});
+	createBunnyShape({group, x: 0.01, y: 0.01, z: 0.01, color: "black", posX: 0.015, posY: 0.03, posZ: 0.25});
+	createBunnyShape({group, x: 0.01, y: 0.01, z: 0.01, color: "black", posX: 0.015, posY: 0.01, posZ: 0.25});
+	createBunnyShape({group, x: 0.01, y: 0.01, z: 0.01, color: "black", posX: 0.035, posY: 0.01, posZ: 0.25});
+	createBunnyShape({group, x: 0.01, y: 0.01, z: 0.01, color: "black", posX: 0.035, posY: 0.03, posZ: 0.25});
+
+	createBunnyShape({group, x: 0.01, y: 0.01, z: 0.01, color: "black", posX: -0.025, posY: 0.02, posZ: 0.25});
+	createBunnyShape({group, x: 0.01, y: 0.01, z: 0.01, color: "black", posX: -0.015, posY: 0.03, posZ: 0.25});
+	createBunnyShape({group, x: 0.01, y: 0.01, z: 0.01, color: "black", posX: -0.015, posY: 0.01, posZ: 0.25});
+	createBunnyShape({group, x: 0.01, y: 0.01, z: 0.01, color: "black", posX: -0.035, posY: 0.01, posZ: 0.25});
+	createBunnyShape({group, x: 0.01, y: 0.01, z: 0.01, color: "black", posX: -0.035, posY: 0.03, posZ: 0.25});
 
 	mainGroup.add(group);
 	const box = new THREE.Box3().setFromObject( group );
