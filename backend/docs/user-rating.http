@@ -1,0 +1,4 @@
+GET http://localhost:8080/user/rating
+Accept: application/json
+
+###
