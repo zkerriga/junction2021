@@ -17,7 +17,7 @@ const App = ({ dispatch }: AppProps) => {
 	return (
 		<Container>
 			<h1>Junction 21</h1>
-			<GoalInfo goal={100} currentConsumption={99}/>
+			<GoalInfo goal={100} currentConsumption={80}/>
 			<Canvas />
 		</Container>
 	);

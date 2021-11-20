@@ -13,11 +13,14 @@ import { animatePuff, createPuffs } from "../../render/puff";
 import { createMailbox } from "../../render/mailbox";
 import { animateBunny, animateBunnyEyes, createBunny } from "../../render/bunny";
 import styled from "styled-components";
+import { gsap } from "gsap";
 
 const StyledContainer = styled.div`
-  width: 100%;
-  border-radius: 16px;
-  overflow: hidden;
+  	width: 100%;
+  	border: 1px solid #E5E5E5;
+  	border-radius: 16px;
+  	margin-bottom: 16px;
+	overflow: hidden;
 `
 
 const bunnies = [{
@@ -205,29 +208,17 @@ const Canvas = () => {
 			// animate water details
 			animateParticles(animateDet, dets);
 			animateParticles(animateDet2, dets2);
-			// trees
-			// trees next to house
-			// createTree(0, 0.75, -0.1, 0, 1.2, -0.1, treeGroup, mainGroup);
-			// createTree(-1.50, 0.75, -0.1, -1.50, 1.2, -0.1, treeGroup, mainGroup);
-			// createTree(-0.75, 0.75, -0.5, -0.75, 1.2, -0.5, treeGroup, mainGroup);
-			// createTree(0, 0.75, -1, 0, 1.2, -1, treeGroup, mainGroup);
-			// createTree(-1.50, 0.75, -1, -1.50, 1.2, -1, treeGroup, mainGroup);
-			// createTree(-0.75, 0.75, -1.5, -0.75, 1.2, -1.5, treeGroup, mainGroup);
 
 			// trees
 			for (let i = 0; i < trees.length; i++) {
 				let tree = trees[i];
 				createTree(tree.trunk.x, tree.trunk.y, tree.trunk.z, tree.leaves.x, tree.leaves.y, tree.leaves.z, treeGroup, mainGroup);
 			}
-			// bushes next to house
-			createBush(treeGroup, { x: -0.7, y: 0.28, z: -0.1 });
-			// createBush(treeGroup, { x: -0.7, y: 0.28, z: -1});
-			// createBush(treeGroup, { x: -1.55, y: 0.28, z: -0.6});
-			createBush(treeGroup, { x: -1.35, y: 0.28, z: -1.5 });
-			//treeGroup,
-			createBush(treeGroup, { x: 1.5, y: 0.28, z: 1 });
-			// createBush(treeGroup, {x: 1.5, y: 0.28, z: 0});
-			createBush(treeGroup, { x: 1.5, y: 0.28, z: -1 });
+			// bushes
+			for (let i = 0; i < bushes.length; i++) {
+				let bush = bushes[i];
+				createBush(treeGroup, { x: bush.x, y: bush.y, z: bush.z});
+			}
 			// house
 			createHouse({ colors, mainGroup });
 			// chimney smoke

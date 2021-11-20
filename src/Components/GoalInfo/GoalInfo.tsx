@@ -53,7 +53,7 @@ const GoalInfo = ({ goal, currentConsumption }: GoalInfoProps) => {
 	return (
 		<StyledContainer>
 			<StyledInfoContainer>
-				<span>Gaol</span>
+				<span>Goal</span>
 				<span>{`${goal} l/month`}</span>
 			</StyledInfoContainer>
 			<StyledRange date={new Date(Date.now()).getDate()} consumptionPercent={(currentConsumption / goal)}/>

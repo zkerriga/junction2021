@@ -19,7 +19,7 @@ export const setup = ({scene, camera, renderer, width, height, controls, mainGro
 	scene.add( camera );
 	renderer.setSize(width, height);
 	renderer.setPixelRatio(window.devicePixelRatio);
-	renderer.setClearColor(0x9ac2fe);
+	renderer.setClearColor(0xFFFFFF);
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 	// @ts-ignore
