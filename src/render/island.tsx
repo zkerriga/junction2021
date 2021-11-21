@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-import {Group, MeshLambertMaterial} from "three";
+import {Group, Mesh, MeshLambertMaterial} from "three";
 import gsap from "gsap";
 import {IColors} from "../model/model";
 
@@ -23,9 +23,6 @@ export const createIsland = (mat2: MeshLambertMaterial, {colors, mainGroup}: isl
 	islandGroup.add(cone);
 	// grass
 	let boxGeo = new THREE.BoxBufferGeometry();
-	// let mat2 = new THREE.MeshLambertMaterial({
-	// 	color: colors.green
-	// });
 	let grass = new THREE.Mesh(boxGeo, mat2);
 	grass.scale.set(4, 0.5, 4);
 	grass.receiveShadow = true;
@@ -47,6 +44,8 @@ export const createIsland = (mat2: MeshLambertMaterial, {colors, mainGroup}: isl
 	water.scale.set(0.1, 0.51, 4.01);
 	water.position.set(0.75, 0.009, 0.007);
 	mainGroup.add(islandGroup);
+
+	return water;
 }
 
 export const animateIsland = ({mainGroup}: Pick<islandProps, 'mainGroup'>) => {

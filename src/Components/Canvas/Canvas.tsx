@@ -15,6 +15,7 @@ import { animateBunny, animateBunnyEyes, createBunny } from "../../render/bunny"
 import styled from "styled-components";
 import { gsap } from "gsap";
 import {IColors} from "../../model/model";
+import {State} from "../../types/stateTypes";
 
 const StyledContainer = styled.div`
   	width: 100%;
@@ -132,11 +133,11 @@ const bushes = [
 }];
 
 interface CanvasProps {
-	status: number;
+	state: State;
 	colors: IColors;
 }
 
-const Canvas = ({status, colors}: CanvasProps) => {
+const Canvas = ({state, colors}: CanvasProps) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
 	useEffect(() => {
@@ -167,28 +168,9 @@ const Canvas = ({status, colors}: CanvasProps) => {
 			const treesArr: MeshLambertMaterial[] = [];
 			const bushesArr: MeshLambertMaterial[] = [];
 
-
-			// render
-			const render = () => {
-				grass.setValues({color: colors.green})
-				treesArr.forEach(el => el.setValues({color: colors.green2}))
-				bushesArr.forEach(el => el.setValues({color: colors.green3}))
-				controls.update()
-				requestAnimationFrame(render);
-				renderer.render(scene, camera);
-			};
-
-			// resize
-			const resizeHandler = () => {
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-				renderer.setSize(window.innerWidth, window.innerHeight);
-			};
-
-			window.addEventListener("resize", resizeHandler);
-
 			setup({ scene, camera, renderer, width, height, controls, mainGroup });
-			createIsland(grass, { colors, mainGroup });
+
+			const river: Mesh = createIsland(grass, { colors, mainGroup });
 			animateIsland({ mainGroup });
 
 			createParticles({
@@ -257,7 +239,26 @@ const Canvas = ({status, colors}: CanvasProps) => {
 				animateBunny(bunny.pivot, bunny.delay);
 				animateBunnyEyes(bunny.bunnyGroup, bunny.delay);
 			}
+			// render
+			const render = () => {
+				grass.setValues({color: colors.green})
+				treesArr.forEach(el => el.setValues({color: colors.green2}))
+				bushesArr.forEach(el => el.setValues({color: colors.green3}))
+				// @ts-ignore
+				river.scale.set(window.userstatus / 2, 0.51, 4.01)
+				controls.update()
+				requestAnimationFrame(render);
+				renderer.render(scene, camera);
+			};
 
+			// resize
+			const resizeHandler = () => {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize(window.innerWidth, window.innerHeight);
+			};
+
+			window.addEventListener("resize", resizeHandler);
 			render();
 		}
 	}, [canvasRef])

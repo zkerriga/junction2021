@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import App from "../App/App";
-import {StoreContext} from "../../context/storeContext";
 import {State} from "../../types/stateTypes";
 import {getUpdatedGoal} from "../../api/api";
 
@@ -16,7 +15,7 @@ const AppData = () => {
 			place: 0,
 		},
 		goal: 200,
-		status: 0,
+		status: 1,
 		consumption: {
 			liters: 0,
 			kWh: 0,
@@ -24,6 +23,8 @@ const AppData = () => {
 	})
 
 	useEffect(() => {
+		// @ts-ignore
+		window.userstatus = state.status;
 		getUpdatedGoal(state.goal).then(data => {
 			setState(prevState => ({
 				...prevState,
@@ -32,13 +33,13 @@ const AppData = () => {
 					...data.consumption
 				}
 			}))
-		})
+			// @ts-ignore
+			window.userstatus = data.status
+		});
 	}, [])
 
 	return (
-		<StoreContext.Provider value={state}>
-			<App setState={setState}/>
-		</StoreContext.Provider>
+		<App state={state} setState={setState}/>
 	);
 };
 

@@ -3,7 +3,6 @@ import GoalInfo from "../GoalInfo/GoalInfo";
 import styled from "styled-components";
 import Canvas from "../Canvas/Canvas";
 import GoalSelector from "../GoalSelector/GoalSelector";
-import {StoreContext} from "../../context/storeContext";
 import {getUpdatedGoal} from "../../api/api";
 import {State} from "../../types/stateTypes";
 import {colorRound, HEXtoHSL, HSL, HSLToHex} from "../../utils/color";
@@ -35,48 +34,53 @@ const Container = styled.div`
 `
 
 interface AppProps {
+	state: State,
 	setState: React.Dispatch<React.SetStateAction<State>>
 }
 
-const App = ({ setState }: AppProps) => {
-	const state = useContext(StoreContext);
+const App = ({ state, setState }: AppProps) => {
+	// const state = useContext(StoreContext);
 
 	const changeGoalHandler = (newGoal: number) => {
 		if (state.goal + newGoal > 0) {
-			getUpdatedGoal(state.goal + newGoal).then(data => {
-				setState(prevState => ({
-					...prevState,
-					goal: prevState.goal + newGoal,
-					status: data.status,
-					consumption: {
-						...data.consumption
-					}
-				}))
-			})
-
-			COLORS_RANGE.forEach(el => {
-				for (let key in el) {
+			getUpdatedGoal(state.goal + newGoal)
+				.then(data => {
+					setState(prevState => ({
+						...prevState,
+						goal: prevState.goal + newGoal,
+						status: data.status,
+						consumption: {
+							...data.consumption
+						}
+					}))
+				})
+				.then(() => {
 					// @ts-ignore
-					const bestHSL = HEXtoHSL(el[key].best);
-					// @ts-ignore
-					const worstHSL = HEXtoHSL(el[key].worst);
-					const newHSLColor= {} as HSL;
+					window.userstatus = state.status;
+					COLORS_RANGE.forEach(el => {
+						for (let key in el) {
+							// @ts-ignore
+							const bestHSL = HEXtoHSL(el[key].best);
+							// @ts-ignore
+							const worstHSL = HEXtoHSL(el[key].worst);
+							const newHSLColor= {} as HSL;
 
-					newHSLColor.s = colorRound(bestHSL?.s as number, worstHSL?.s as number, state.status);
-					newHSLColor.h = colorRound(bestHSL?.h as number, worstHSL?.h as number, state.status);
-					newHSLColor.l = colorRound(bestHSL?.l as number, worstHSL?.l as number, state.status);
+							newHSLColor.s = colorRound(bestHSL?.s as number, worstHSL?.s as number, state.status);
+							newHSLColor.h = colorRound(bestHSL?.h as number, worstHSL?.h as number, state.status);
+							newHSLColor.l = colorRound(bestHSL?.l as number, worstHSL?.l as number, state.status);
 
-					// @ts-ignore
-					colors[key] = HSLToHex(newHSLColor.s, newHSLColor.h, newHSLColor.l);
-				}
-			})
+							// @ts-ignore
+							colors[key] = HSLToHex(newHSLColor.s, newHSLColor.h, newHSLColor.l);
+						}
+					})
+				})
 		}
 	}
 
 	return (
 		<Container>
 			<GoalInfo goal={state.goal} currentConsumption={state.consumption.liters}/>
-			<Canvas colors={colors} status={state.status}/>
+			<Canvas colors={colors} state={state}/>
 			<GoalSelector
 				updateGoal={changeGoalHandler}
 				goal={state.goal}/>
