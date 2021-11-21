@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import styled from "styled-components";
-import {StoreContext} from "../../context/storeContext";
 
 const StyledContainer = styled.div`
   width: 100%;
