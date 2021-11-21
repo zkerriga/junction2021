@@ -25,17 +25,17 @@ const bunnyEyes = [{
 
 const bunnyEars = [{
 	x: 0.025,
-	y: 0.014,
+	y: 0.14,
 	z: 0.025,
-	posX: 0.02,
-	posY: 0.5,
+	posX: 0.025,
+	posY: 0.05,
 	posZ: 0.23,
 }, {
 	x: 0.025,
-	y: 0.014,
+	y: 0.14,
 	z: 0.025,
 	posX: -0.025,
-	posY: 0.5,
+	posY: 0.05,
 	posZ: 0.23,
 }];
 
