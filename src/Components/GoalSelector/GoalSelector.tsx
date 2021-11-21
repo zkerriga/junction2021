@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import styled from "styled-components";
 
 const StyledContainer = styled.div`
@@ -39,8 +39,21 @@ const StyledSelectorHero = styled.div`
   	position: relative;
   	margin: 0 40px;
   
+  &::after {
+	content: '';
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	border-radius: 50%;
+	background: #fff;
+    transform: translate(-50%, -50%);
+	z-index: 2;
+  }
+  
   &::before {
-    z-index: -1;
+    z-index: 1;
 	content: '';
 	position: absolute;
 	top: 50%;
@@ -58,6 +71,7 @@ const StyledAmount = styled.div`
   font-weight: normal;
   font-size: 24px;
   line-height: 28px;
+  z-index: 3;
 `
 
 const StyledArrow = styled.div<{ direction: 'left' | 'right'}>`

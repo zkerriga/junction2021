@@ -373,7 +373,7 @@ const Canvas = ({state, colors}: CanvasProps) => {
 
 	return (
 		<StyledContainer>
-			<canvas ref={canvasRef} height={window.innerHeight * 0.6}/>
+			<canvas ref={canvasRef} width={window.innerWidth * 0.25} height={window.innerHeight * 0.35}/>
 		</StyledContainer>
 	);
 };

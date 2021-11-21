@@ -31,6 +31,7 @@ const COLORS_RANGE = [
 
 const Container = styled.div`
 	padding: 16px;
+  	height: 100vh;
 `
 
 interface AppProps {

@@ -39,7 +39,11 @@ const AppData = () => {
 	}, [])
 
 	return (
-		<App state={state} setState={setState}/>
+		<div className="smartphone">
+			<div className="content">
+				<App state={state} setState={setState}/>
+			</div>
+		</div>
 	);
 };
 
