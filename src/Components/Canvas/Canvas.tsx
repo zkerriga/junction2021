@@ -27,91 +27,171 @@ const StyledContainer = styled.div`
 
 const bunnies = [
 	{
-	pivot: new THREE.Group(),
-	bunnyGroup: new THREE.Group(),
-	position: {
-		x: 0,
-		y: 0.33,
-		z: 0.2,
+		pivot: new THREE.Group(),
+		bunnyGroup: new THREE.Group(),
+		position: {
+			x: 0,
+			y: 0.33,
+			z: 0.2,
+		},
+		delay: 0,
+		alive: true
 	},
-	delay: 0,
-}, {
-	pivot: new THREE.Group(),
-	bunnyGroup: new THREE.Group(),
-	position: {
-		x: -1,
-		y: 0.33,
-		z: -1,
-	},
-	delay: gsap.utils.random(0, 3, 0.4),
-}, {
-	pivot: new THREE.Group(),
-	bunnyGroup: new THREE.Group(),
-	position: {
-		x: -0.2,
-		y: 0.33,
-		z: -1.4,
-	},
-	delay: gsap.utils.random(0, 3, 0.4),
-}];
+	{
+		pivot: new THREE.Group(),
+		bunnyGroup: new THREE.Group(),
+		position: {
+			x: -1,
+			y: 0.33,
+			z: -1,
+		},
+		delay: gsap.utils.random(0, 3, 0.4),
+		alive: true
+ 	},
+	{
+		pivot: new THREE.Group(),
+		bunnyGroup: new THREE.Group(),
+		position: {
+			x: -0.2,
+			y: 0.33,
+			z: -1.4,
+		},
+		delay: gsap.utils.random(0, 3, 0.4),
+		alive: true
+	}];
 
 const trees = [
 	{
-	trunk: {
-		x: 0,
-		y: 0.5,
-		z: -0.1,
+		trunk: {
+			x: 0,
+			y: 0.5,
+			z: -0.1,
+		},
+		leaves: {
+			x: 0,
+			y: 0.9,
+			z: -0.1,
+		},
+		alive: true
 	},
-	leaves: {
-		x: 0,
-		y: 0.9,
-		z: -0.1,
+	{
+		trunk: {
+			x: -1.5,
+			y: 0.5,
+			z: -1,
+		},
+		leaves: {
+			x: -1.5,
+			y: 0.9,
+			z: -1,
+		},
+		alive: true
 	},
-}, {
-	trunk: {
-		x: -1.5,
-		y: 0.5,
-		z: -1,
+	{
+		trunk: {
+			x: -0.75,
+			y: 0.5,
+			z: -1.5,
+		},
+		leaves: {
+			x: -0.75,
+			y: 0.9,
+			z: -1.5,
+		},
+		alive: true
 	},
-	leaves: {
-		x: -1.5,
-		y: 0.9,
-		z: -1,
+	{
+		trunk: {
+			x: 1.5,
+			y: 0.5,
+			z: -1.5,
+		},
+		leaves: {
+			x: 1.5,
+			y: 0.9,
+			z: -1.5,
+		},
+		alive: true
 	},
-}, {
-	trunk: {
-		x: -0.75,
-		y: 0.5,
-		z: -1.5,
+	{
+		trunk: {
+			x: 1.5,
+			y: 0.5,
+			z: 0.5,
+		},
+		leaves: {
+			x: 1.5,
+			y: 0.9,
+			z: 0.5,
+		},
+		alive: true
 	},
-	leaves: {
-		x: -0.75,
-		y: 0.9,
-		z: -1.5,
+	{
+		trunk: {
+			x: -1.5,
+			y: 0.5,
+			z: -0.1,
+		},
+		leaves: {
+			x: -1.50,
+			y: 0.9,
+			z: -0.1,
+		},
+		alive: true
 	},
-}, {
-	trunk: {
-		x: 1.5,
-		y: 0.5,
-		z: -1.5,
+	{
+		trunk: {
+			x: -0.75,
+			y: 0.5,
+			z: -0.5,
+		},
+		leaves: {
+			x: -0.75,
+			y: 0.9,
+			z: -0.5,
+		},
+		alive: true
 	},
-	leaves: {
-		x: 1.5,
-		y: 0.9,
-		z: -1.5,
+	{
+		trunk: {
+			x: 0,
+			y: 0.5,
+			z: -1,
+		},
+		leaves: {
+			x: 0,
+			y: 0.9,
+			z: -1,
+		},
+		alive: true
 	},
-}, {
-	trunk: {
-		x: 1.5,
-		y: 0.5,
-		z: 0.5,
+	{
+		trunk: {
+			x: -1.50,
+			y: 0.5,
+			z: -1,
+		},
+		leaves: {
+			x: -1.50,
+			y: 0.9,
+			z: -1,
+		},
+		alive: true
 	},
-	leaves: {
-		x: 1.5,
-		y: 0.9,
-		z: 0.5,
-	},
-}];
+	{
+		trunk: {
+			x: 1.50,
+			y: 0.5,
+			z: -0.5,
+		},
+		leaves: {
+			x: 1.50,
+			y: 0.9,
+			z: -0.5,
+		},
+		alive: true
+	}
+];
 
 const bushes = [
 	{
@@ -245,8 +325,35 @@ const Canvas = ({state, colors}: CanvasProps) => {
 				treesArr.forEach(el => el.setValues({color: colors.green2}))
 				bushesArr.forEach(el => el.setValues({color: colors.green3}))
 				// @ts-ignore
+
 				river.scale.set(window.userstatus / 2, 0.51, 4.01)
 				controls.update()
+
+				// @ts-ignore
+				if (window.userstatus < 0.2 && bunnies[0].alive)
+				{
+					mainGroup.remove(bunnies[0].pivot)
+					bunnies[0].alive = false
+				}
+				// @ts-ignore
+				else if (window.userstatus > 0.2 && !bunnies[0].alive)
+				{
+					mainGroup.add(bunnies[0].pivot)
+					bunnies[0].alive = true
+				}
+				// @ts-ignore
+				if (window.userstatus < 0.6 && bunnies[1].alive)
+				{
+					mainGroup.remove(bunnies[1].pivot)
+					bunnies[1].alive = false
+				}
+				// @ts-ignore
+				else if (window.userstatus > 0.6 && !bunnies[1].alive)
+				{
+					mainGroup.add(bunnies[1].pivot)
+					bunnies[1].alive = true
+				}
+
 				requestAnimationFrame(render);
 				renderer.render(scene, camera);
 			};

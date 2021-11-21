@@ -14,7 +14,7 @@ const AppData = () => {
 			totalUsers: 0,
 			place: 0,
 		},
-		goal: 200,
+		goal: 16000,
 		status: 1,
 		consumption: {
 			liters: 0,
