@@ -37,6 +37,10 @@ const Container = styled.div`
   	height: 100vh;
 `
 
+const Padding = styled.div`
+	height: 0.5vh;
+`
+
 interface AppProps {
 	state: State,
 	setState: React.Dispatch<React.SetStateAction<State>>
@@ -91,6 +95,7 @@ const App = ({ state, setState }: AppProps) => {
 			<Rating total={21} place={12}/>
 			<Tips title="ADVICE OF THE DAY"/>
 			<Infographics value={0.5}/>
+			<Padding></Padding>
 		</Container>
 	);
 };

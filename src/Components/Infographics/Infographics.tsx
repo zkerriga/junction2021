@@ -45,8 +45,8 @@ const Infographics = ({ value }: Infographics) => {
             <StyledSubTitle>Average of water and energy</StyledSubTitle>
             <StyledSelectorContainer >
                 <CircularProgressbar
-                    value={value}
-                    text={`${value}l/min`}
+                    value={value * 35}
+                    text={`${value * 35}l/min`}
                     circleRatio={0.75}
                     styles={buildStyles({
                         rotation: 1 / 2 + 1 / 8,
