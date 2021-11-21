@@ -25,6 +25,7 @@ const StyledSelectorContainer = styled.div`
 	display: flex;
   	align-items: center;
   	justify-content: space-between;
+  	gap: 16px;
 `
 
 const StyledSubTitle = styled.h4`
@@ -55,8 +56,8 @@ const Infographics = ({ value }: Infographics) => {
                     })}
                 />
                 <CircularProgressbar
-                    value={value}
-                    text={`${value}kWh`}
+                    value={value * 100}
+                    text={`${value * 100}kWh`}
                     circleRatio={0.75}
                     styles={buildStyles({
                         rotation: 1 / 2 + 1 / 8,
