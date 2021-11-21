@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
-import { getBasicRenderInstance, getSettings } from "../../render/getBasicRenderData";
-import { Mesh } from "three";
+import React, {useEffect, useRef, useState} from 'react';
+import {colors, getBasicRenderInstance, getSettings} from "../../render/getBasicRenderData";
+import {Mesh, MeshLambertMaterial} from "three";
 import * as THREE from "three";
 import { setup } from "../../render/setup";
 import { animateIsland, createIsland } from "../../render/island";
@@ -14,6 +14,7 @@ import { createMailbox } from "../../render/mailbox";
 import { animateBunny, animateBunnyEyes, createBunny } from "../../render/bunny";
 import styled from "styled-components";
 import { gsap } from "gsap";
+import {IColors} from "../../model/model";
 
 const StyledContainer = styled.div`
   	width: 100%;
@@ -23,7 +24,8 @@ const StyledContainer = styled.div`
 	overflow: hidden;
 `
 
-const bunnies = [{
+const bunnies = [
+	{
 	pivot: new THREE.Group(),
 	bunnyGroup: new THREE.Group(),
 	position: {
@@ -52,7 +54,8 @@ const bunnies = [{
 	delay: gsap.utils.random(0, 3, 0.4),
 }];
 
-const trees = [{
+const trees = [
+	{
 	trunk: {
 		x: 0,
 		y: 0.5,
@@ -109,7 +112,8 @@ const trees = [{
 	},
 }];
 
-const bushes = [{
+const bushes = [
+	{
 	x: -0.7,
 	y: 0.28,
 	z: -0.1,
@@ -127,13 +131,17 @@ const bushes = [{
 	z: -1,
 }];
 
-const Canvas = () => {
-	const canvasRef = useRef<HTMLCanvasElement>(null);
+interface CanvasProps {
+	status: number;
+	colors: IColors;
+}
 
+const Canvas = ({status, colors}: CanvasProps) => {
+	const canvasRef = useRef<HTMLCanvasElement>(null);
 
 	useEffect(() => {
 		if (canvasRef.current) {
-			const { canvas, colors, width, height } = getSettings(canvasRef.current);
+			const { canvas, width, height } = getSettings(canvasRef.current);
 			const { mainGroup, scene, camera, renderer, controls } = getBasicRenderInstance(canvas);
 
 			// waterfall particles
@@ -154,8 +162,17 @@ const Canvas = () => {
 			const puffCount = 2;
 			let puffs: Mesh[] = [];
 
+			const grass = new THREE.MeshLambertMaterial({color: colors.green});
+			const roofMat = new THREE.MeshLambertMaterial({ color: colors.red });
+			const treesArr: MeshLambertMaterial[] = [];
+			const bushesArr: MeshLambertMaterial[] = [];
+
+
 			// render
 			const render = () => {
+				grass.setValues({color: colors.green})
+				treesArr.forEach(el => el.setValues({color: colors.green2}))
+				bushesArr.forEach(el => el.setValues({color: colors.green3}))
 				controls.update()
 				requestAnimationFrame(render);
 				renderer.render(scene, camera);
@@ -171,7 +188,7 @@ const Canvas = () => {
 			window.addEventListener("resize", resizeHandler);
 
 			setup({ scene, camera, renderer, width, height, controls, mainGroup });
-			createIsland({ colors, mainGroup });
+			createIsland(grass, { colors, mainGroup });
 			animateIsland({ mainGroup });
 
 			createParticles({
@@ -211,16 +228,22 @@ const Canvas = () => {
 
 			// trees
 			for (let i = 0; i < trees.length; i++) {
+				let mat2 = new THREE.MeshLambertMaterial({color: colors.green2});
 				let tree = trees[i];
-				createTree(tree.trunk.x, tree.trunk.y, tree.trunk.z, tree.leaves.x, tree.leaves.y, tree.leaves.z, treeGroup, mainGroup);
+				treesArr.push(mat2);
+
+				createTree(mat2, tree.trunk.x, tree.trunk.y, tree.trunk.z, tree.leaves.x, tree.leaves.y, tree.leaves.z, treeGroup, mainGroup);
 			}
 			// bushes
 			for (let i = 0; i < bushes.length; i++) {
+				let mat = new THREE.MeshLambertMaterial({color: colors.green3});
 				let bush = bushes[i];
-				createBush(treeGroup, { x: bush.x, y: bush.y, z: bush.z});
+				bushesArr.push(mat);
+
+				createBush(mat, treeGroup, { x: bush.x, y: bush.y, z: bush.z});
 			}
 			// house
-			createHouse({ colors, mainGroup });
+			createHouse(roofMat,{ colors, mainGroup });
 			// chimney smoke
 			createPuffs(puffCount, puffs, houseGroup);
 			// animate the smoke

@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import {IColors, ICoord, IPos} from "../model/model";
-import {Group} from "three";
+import {Group, MeshLambertMaterial} from "three";
 
 const houseGroup = new THREE.Group();
 
@@ -43,7 +43,7 @@ export const createBoxShape =  ({x, y, z, posX, posY, posZ, color, rShadow, cSha
 	group.add(mesh);
 }
 
-export const createHouse = ({mainGroup, colors}: createHouseProps) => {
+export const createHouse = (roofMat: MeshLambertMaterial, {mainGroup, colors}: createHouseProps) => {
 	const boxGeo = new THREE.BoxBufferGeometry();
 	// house
 	const houseMat = new THREE.MeshLambertMaterial({ color: colors.house });
@@ -55,7 +55,6 @@ export const createHouse = ({mainGroup, colors}: createHouseProps) => {
 	houseGroup.add(house);
 	// roof
 	const roofGeo = new THREE.ConeBufferGeometry(1.1, 0.7, 4);
-	const roofMat = new THREE.MeshLambertMaterial({ color: colors.red });
 	const roof = new THREE.Mesh(roofGeo, roofMat);
 	roof.position.set(-1, 1.6, 1);
 	roof.rotation.y = THREE.MathUtils.degToRad(45);

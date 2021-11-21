@@ -82,12 +82,12 @@ const GoalSelector = ({goal, updateGoal}: GoalSelectorProps) => {
 			<StyledTitle>BUILD NEW GOAL</StyledTitle>
 			<StyledSubTitle>Set a new goal for greater results</StyledSubTitle>
 			<StyledSelectorContainer>
-				<StyledArrow direction="right" onClick={() => updateGoal(-25)}/>
+				<StyledArrow direction="right" onClick={() => updateGoal(-1000)}/>
 				<StyledSelectorHero>
 					<StyledAmount>{goal}</StyledAmount>
 					<StyledAmount>l/month</StyledAmount>
 				</StyledSelectorHero>
-				<StyledArrow direction="left" onClick={() => updateGoal(25)}/>
+				<StyledArrow direction="left" onClick={() => updateGoal(1000)}/>
 			</StyledSelectorContainer>
 		</StyledContainer>
 	);

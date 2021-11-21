@@ -1,8 +1,9 @@
 import * as THREE from "three";
-import {Group} from "three";
+import {Group, MeshLambertMaterial} from "three";
 import {colors} from './getBasicRenderData'
 
 export const createTree = (
+	mat2: MeshLambertMaterial,
 	trunkX: number,
 	trunkY: number,
 	trunkZ: number,
@@ -24,9 +25,6 @@ export const createTree = (
 
 	// leaves
 	let geo2 = new THREE.SphereBufferGeometry(0.2, 12, 12);
-	let mat2 = new THREE.MeshLambertMaterial({
-		color: colors.green2
-	});
 	let treeLeaves = new THREE.Mesh(geo2, mat2);
 	treeLeaves.position.set(leavesX, leavesY, leavesZ);
 	treeLeaves.castShadow = true;

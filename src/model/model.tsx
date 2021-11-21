@@ -17,16 +17,16 @@ export interface IPivotPos {
 }
 
 export interface IColors {
-	blue: number,
-	brown: number,
-	brown2: number,
-	red: number,
-	green: number,
-	green2: number,
-	green3: number,
-	house: number,
-	purple: number,
-	gold: number,
-	grey: number,
-	greyBrown: number,
+	blue: number | string,
+	brown: number | string,
+	brown2: number | string,
+	red: number | string,
+	green: number | string,
+	green2: number | string,
+	green3: number | string,
+	house: number | string,
+	purple: number | string,
+	gold: number | string,
+	grey: number | string,
+	greyBrown: number | string,
 }
