@@ -1,11 +1,12 @@
-# Smart-water
-**The mobile app for company Oras Group that helps people care about water with benefit to planet and themself. **
+# Water-care
+**The self-motivated mobile app that helps people care about water with benefit to planet and themself.
+Save water by improving your virtual forest!**
 
 ### PROBLEMATICS
 Global risks from overuse and shortage, poor water infrastructure and management came out on top. Many people don't think twice or it's just hard for them **to keep track of saving water every day**.
 
 ### SOLUTION
-We think that water conservation should be an **exciting and not difficult process **.
+We think that **water conservation** should be an **exciting and not difficult process **.
 We want to **motivate people** to preserve it and visualize their daily actions that **affect the environment.**
 
 ### INSTRUMENT TO ACHIVE THE SOLUTION
@@ -17,14 +18,12 @@ The mobile app:
 * Notify about extreme consumption (in the plans)
 
 ### CHECK IT OUT
-In demo Smart-water you could:
+In demo Water-care you could:
 * Check the profile of a the user of the company's products Oras
 * Change the goal to your choice.
 * And see how actions have affected your own virtual forest.
 
-You could interact with our app by **link**: 
-
-Check out the preview video **link**: 
+You could see the introducing video in the **link**: https://www.youtube.com/watch?v=jsw0MfUus-o
 
 ### TEAM
 * [Aleksandr Marakulin](https://github.com/pichkasik)
