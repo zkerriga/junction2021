@@ -7,6 +7,9 @@ import {getUpdatedGoal} from "../../api/api";
 import {State} from "../../types/stateTypes";
 import {colorRound, HEXtoHSL, HSL, HSLToHex} from "../../utils/color";
 import {colors} from "../../render/getBasicRenderData";
+import Tips from '../Tips/tips';
+import Rating from '../Rating/Rating';
+import Infographics from '../Infographics/Infographics';
 
 const COLORS_RANGE = [
 	{
@@ -85,6 +88,9 @@ const App = ({ state, setState }: AppProps) => {
 			<GoalSelector
 				updateGoal={changeGoalHandler}
 				goal={state.goal}/>
+			<Rating total={21} place={12}/>
+			<Tips title="ADVICE OF THE DAY"/>
+			<Infographics value={0.5}/>
 		</Container>
 	);
 };
