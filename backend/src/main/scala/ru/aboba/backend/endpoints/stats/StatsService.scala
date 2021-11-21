@@ -60,13 +60,14 @@ object StatsService {
       val currentDay: Int                   = LocalDate.ofEpochDay(time.toDays).getDayOfMonth
       val goalSpentOnCurrentDay: BigDecimal = goal * currentDay / daysOnMonth
 
-      if (spent < goalSpentOnCurrentDay / 2) ConsumptionStatus.best
-      else if (spent >= goalSpentOnCurrentDay / 2 && spent < goalSpentOnCurrentDay)
-        ConsumptionStatus((spent - goalSpentOnCurrentDay / 2) / goalSpentOnCurrentDay)
-      else if (spent >= goalSpentOnCurrentDay && spent < goal)
-        ConsumptionStatus(BigDecimal(0.5) - (spent - goalSpentOnCurrentDay) / goal)
-      else
-        ConsumptionStatus.worst
+      if (goal <= 1) ConsumptionStatus.worst
+      else {
+        val status =
+          if (spent < goalSpentOnCurrentDay / 2) ConsumptionStatus.best
+          else ConsumptionStatus((goal - spent) / (goal - goalSpentOnCurrentDay / 2))
+
+        status.normalize
+      }
     }
   }
 
