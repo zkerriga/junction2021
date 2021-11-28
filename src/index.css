@@ -1,36 +1,50 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-html,body {
-    height:100%;
-}
-body {
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-svg {
-    width:100%;
-}
-
-.container {
-    width:100%;
-    height:100%;
 }
 
 canvas {
+    outline: none;
     display:block;
-    width:100%;
+    width: 100% !important;
     height:100%;
+}
+
+.smartphone {
+    overflow: scroll;
+    position: relative;
+    width: 411px;
+    height: 100vh;
+    margin: auto;
+    border: 16px black solid;
+    border-top-width: 60px;
+    border-bottom-width: 60px;
+    border-radius: 36px;
+}
+
+/* The horizontal line on the top of the device */
+.smartphone:before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 5px;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #333;
+    border-radius: 10px;
+}
+
+/* The screen (or content) of the device */
+.smartphone .content {
+    /*width: 360px;*/
+    /*height: 640px;*/
+    background: white;
 }

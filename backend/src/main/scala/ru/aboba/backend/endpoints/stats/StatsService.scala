@@ -1,27 +1,76 @@
 package ru.aboba.backend.endpoints.stats
 
-import cats.Applicative
-import ru.aboba.backend.endpoints.stats.models.{AverageTime, WaterConsumption}
+import cats.Monad
+import cats.effect.kernel.Clock
+import cats.implicits._
+import ru.aboba.backend.data.DataService
+import ru.aboba.backend.endpoints.stats.models.{AverageTime, Consumption, WaterConsumption}
+import ru.aboba.backend.types.{ConsumptionStatus, Liter, Power}
+
+import java.time.LocalDate
+import scala.concurrent.duration.FiniteDuration
 
 trait StatsService[F[_]] {
   def getAverageShowerTime: F[AverageTime]
 
-  def getWaterConsumption: F[WaterConsumption]
+  def getConsumption(goal: Liter): F[Consumption]
 }
 
 object StatsService {
 
-  final private class Stub[F[_]: Applicative] extends StatsService[F] {
+  final private class Impl[F[_]: Monad: Clock](service: DataService[F]) extends StatsService[F] {
+
     override def getAverageShowerTime: F[AverageTime] =
-      Applicative[F].pure {
-        AverageTime(hours = 0, minutes = 45, seconds = 51)
+      service.getUserMeasurements map { measurements =>
+        val allSeconds =
+          measurements
+            .foldLeft(BigDecimal(0)) { (acc, measurement) =>
+              acc + measurement.flowTime
+            }
+            .intValue
+
+        val hours   = allSeconds / 3600
+        val minutes = (allSeconds - hours * 3600) / 60
+        val seconds = (allSeconds - hours * 3600) - minutes * 60
+        AverageTime(hours = hours, minutes = minutes, seconds = seconds)
       }
 
-    override def getWaterConsumption: F[WaterConsumption] =
-      Applicative[F].pure {
-        WaterConsumption(liters = 140.31, kWh = 510.10)
+    override def getConsumption(goal: Liter): F[Consumption] =
+      service.getUserMeasurements flatMap { measurements =>
+        val liters = measurements.map(_.waterConsumption).fold(Liter.zero)(_ plus _)
+        val kWh    = measurements.map(_.powerConsumption).fold(Power.zero)(_ plus _)
+
+        Clock[F].realTime map { time =>
+          Consumption(
+            status = computeConsumptionStatus(goal, liters, time).normalize,
+            consumption = WaterConsumption(
+              liters = liters,
+              kWh = kWh
+            )
+          )
+        }
       }
+
+    private def computeConsumptionStatus(
+        goal: Liter,
+        spent: Liter,
+        time: FiniteDuration
+    ): ConsumptionStatus = {
+      val daysOnMonth                       = 30
+      val currentDay: Int                   = LocalDate.ofEpochDay(time.toDays).getDayOfMonth
+      val goalSpentOnCurrentDay: BigDecimal = goal * currentDay / daysOnMonth
+
+      if (goal <= 1) ConsumptionStatus.worst
+      else {
+        val status =
+          if (spent < goalSpentOnCurrentDay / 2) ConsumptionStatus.best
+          else ConsumptionStatus((goal - spent) / (goal - goalSpentOnCurrentDay / 2))
+
+        status.normalize
+      }
+    }
   }
 
-  def impl[F[_]: Applicative]: StatsService[F] = new Stub[F]
+  def impl[F[_]: Monad: Clock](dataService: DataService[F]): StatsService[F] =
+    new Impl[F](dataService)
 }

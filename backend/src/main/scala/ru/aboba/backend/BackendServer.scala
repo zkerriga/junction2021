@@ -7,26 +7,33 @@ import fs2.Stream
 import org.http4s.ember.client.EmberClientBuilder
 import org.http4s.ember.server.EmberServerBuilder
 import org.http4s.implicits._
-import org.http4s.server.middleware.Logger
+import org.http4s.server.middleware.{CORS, Logger}
+import ru.aboba.backend.data.DataService
+import ru.aboba.backend.data.models.Data
 import ru.aboba.backend.endpoints.rating.{RatingEndpoint, RatingService}
 import ru.aboba.backend.endpoints.stats.{StatsEndpoint, StatsService}
 
 object BackendServer {
 
-  def stream[F[_]: Async]: Stream[F, Nothing] = {
+  def stream[F[_]: Async](resource: Data): Stream[F, Nothing] = {
     for {
       _ <- Stream.resource(EmberClientBuilder.default[F].build)
-      ratingService = RatingService.impl[F]
-      statsService  = StatsService.impl[F]
+      dataService   = DataService.impl[F](resource)
+      ratingService = RatingService.impl[F](dataService)
+      statsService  = StatsService.impl[F](dataService)
 
       // Combine Service Routes into an HttpApp.
       // Can also be done via a Router if you
       // want to extract a segments not checked
       // in the underlying routes.
-      httpApp = (
-        RatingEndpoint.routes[F](ratingService) <+>
-          StatsEndpoint.routes[F](statsService)
-      ).orNotFound
+      httpApp = CORS.policy.withAllowOriginAll
+        .withAllowCredentials(false)
+        .apply(
+          (
+            RatingEndpoint.routes[F](ratingService) <+>
+              StatsEndpoint.routes[F](statsService)
+          ).orNotFound
+        )
 
       // With Middlewares in place
       finalHttpApp = Logger.httpApp(true, true)(httpApp)
